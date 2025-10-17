@@ -27,6 +27,17 @@ You’ll see a black window with a green “snake” that you can control with t
 
 The game runs at 15 FPS by default – change FPS in the script if you want it faster or slower.
 
+## 🎮 Controls & Speed Modes
+
+- Movement: Arrow keys (Up / Down / Left / Right)
+- Pause / Resume: P
+- Speed modes: select difficulty which changes the game FPS (affects snake speed)
+	- Easy: 5 FPS — press `1` or `E`
+	- Normal: 10 FPS — press `2` or `N` (default)
+	- Hard: 15 FPS — press `3` or `H`
+
+The chosen speed mode takes effect immediately during play.
+
 ## 🛠️ Features
 
 Feature	Description

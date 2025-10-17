@@ -60,6 +60,10 @@ class SnakeGame:
 
         # Timing for the food spawn
         self.spawn_food()
+        # speed mode: ('Easy','Normal','Hard') -> fps
+        self.speed_modes = {"Easy": 5, "Normal": 10, "Hard": 15}
+        self.speed_mode = "Normal"
+        self.current_fps = self.speed_modes[self.speed_mode]
 
     # --------------------------------------------------------------------- #
     # Food spawning logic
@@ -92,6 +96,17 @@ class SnakeGame:
 
                 # Arrow keys set absolute direction (prevents drifting/diagonals)
                 if event.type == pygame.KEYDOWN:
+                    # Speed mode keys: 1/E=Easy, 2/N=Normal, 3/H=Hard
+                    if event.key in (pygame.K_1, pygame.K_e):
+                        self.speed_mode = "Easy"
+                        self.current_fps = self.speed_modes[self.speed_mode]
+                    elif event.key in (pygame.K_2, pygame.K_n):
+                        self.speed_mode = "Normal"
+                        self.current_fps = self.speed_modes[self.speed_mode]
+                    elif event.key in (pygame.K_3, pygame.K_h):
+                        self.speed_mode = "Hard"
+                        self.current_fps = self.speed_modes[self.speed_mode]
+
                     if event.key == pygame.K_UP:
                         new_dir = (-1, 0)
                     elif event.key == pygame.K_DOWN:
@@ -149,7 +164,7 @@ class SnakeGame:
 
             # 5. Refresh screen & tick
             pygame.display.flip()
-            self.clock.tick(FPS)
+            self.clock.tick(self.current_fps)
 
         # when the main loop ends, handle game over (username prompt & highscore)
         self.handle_game_over()

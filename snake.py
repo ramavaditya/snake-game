@@ -40,12 +40,13 @@ class SnakeGame:
         self.screen = pygame.display.set_mode((WINDOW_W, WINDOW_H))
         pygame.display.set_caption("Snake – Python Edition")
         self.clock = pygame.time.Clock()
-        # The snake is a list of positions (row, col)
-        # start somewhere near the middle
-        start_r = (WINDOW_H // CELL_SIZE) // 2
-        start_c = (WINDOW_W // CELL_SIZE) // 2 - 1
-        self.snake: List[Position] = [(start_r, start_c), (start_r, start_c + 1), (start_r, start_c + 2)]
-        self.direction: Position = (0, 1)   # moving right initially (dy, dx)
+
+    # The snake is a list of positions (row, col)
+    # start somewhere near the middle
+    start_r = (WINDOW_H // CELL_SIZE) // 2
+    start_c = (WINDOW_W // CELL_SIZE) // 2 - 1
+    self.snake: List[Position] = [(start_r, start_c), (start_r, start_c + 1), (start_r, start_c + 2)]
+    self.direction: Position = (0, 1)   # moving right initially (dy, dx)
         self.food: Position | None = None
 
         # Timing for the food spawn

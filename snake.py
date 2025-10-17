@@ -79,11 +79,16 @@ class SnakeGame:
     def run(self):
         """Main game loop."""
         running = True
+        paused = False
         while running:
             # 1. Handle events
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
+
+                # Pause toggle
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_p:
+                    paused = not paused
 
                 # Arrow keys set absolute direction (prevents drifting/diagonals)
                 if event.type == pygame.KEYDOWN:
@@ -102,6 +107,17 @@ class SnakeGame:
                     if new_dir:
                         if (new_dir[0] + self.direction[0], new_dir[1] + self.direction[1]) != (0, 0):
                             self.direction = new_dir
+
+            # If paused, skip update/draw except show paused indicator
+            if paused:
+                self.draw()
+                # Draw paused overlay
+                pause_surf = self.font.render("PAUSED - press p to resume", True, (255, 255, 255))
+                pause_rect = pause_surf.get_rect(center=(WINDOW_W // 2, WINDOW_H // 2))
+                self.screen.blit(pause_surf, pause_rect)
+                pygame.display.flip()
+                self.clock.tick(10)
+                continue
 
             # 2. Update snake position
             # Calculate new head position with wrap-around (toroidal board)

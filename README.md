@@ -34,6 +34,8 @@ Snake movement	Arrow keys change direction; snake grows when eating food.
 Food spawning	Random empty cell each time the snake eats.
 Drawing	Snake is drawn in green, food in red.
 Frame‑rate control	pygame.time.Clock() keeps a steady FPS.
+Pause	Press P to pause/resume the game; while paused the game state is frozen and a message appears.
+Scoring & Highscore	Eating food increases the score by 1; the current score is shown at the top-center and the best (Top) score and username at the top-right. After a game over you can enter your name — the top score is saved to `highscore.json`.
 
 ## 📁 File structure
 ```bash
@@ -51,9 +53,9 @@ draw	Renders every frame (snake + food).
 run	Main loop that handles input, updates, draws & refreshes.
 
 ## 🎯 What to tweak next
-Speed – change the constant FPS or CELL_SIZE.
-Snake length – add wrap‑around logic so the snake “wraps” when it hits the edge of the window.
-Score – keep a counter and display it in the title bar.
+- Speed – change the constant FPS or CELL_SIZE.
+- Snake length – change the initial snake size or behavior on collisions.
+- UI – change fonts, colors, or add sound effects on eating/game over.
 
 ## 🤝 Contributing
 Feel free to fork, open issues or pull requests.

@@ -15,6 +15,7 @@ from typing import List, Tuple
 import random
 import os
 import json
+import socket
 
 # Window size (pixels)
 WINDOW_W = 640          # width
@@ -277,6 +278,78 @@ class SnakeGame:
 
             pygame.display.flip()
             clock.tick(30)
+
+        # ... (existing imports and constants)
+
+    class MultiplayerSnakeGame:
+        def __init__(self):
+        # ... (existing initialization code)
+            self.players = []  # List of Player objects
+            self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.server_socket.bind(('localhost', 12345))
+            self.server_socket.listen(4)  # Allow up to 4 connections
+
+        def run(self):
+        # ... (existing run method code)
+            running = True
+            while running:
+            # Handle incoming connections and player inputs
+                for conn, addr in self.server_socket.accept():
+                    player = Player(conn)
+                    self.players.append(player)
+
+            # Update game state based on player inputs
+                for player in self.players:
+                    if player.input_ready:
+                        direction = player.get_direction()
+                    # Update player's position and check for collisions
+                    # ...
+
+            # Draw the game state
+            self.draw()
+
+            # Refresh screen & tick
+            pygame.display.flip()
+            self.clock.tick(self.current_fps)
+
+        # Handle game over
+            self.handle_game_over()
+
+    def spawn_food(self):
+        # ... (existing spawn_food method code)
+
+        def draw(self):
+            """Draw the multiplayer game state to the screen."""
+        # Clear background
+            self.screen.fill((0, 0, 0))
+
+        # Draw each player's snake
+        for player in self.players:
+            for r, c in player.snake:
+                pygame.draw.rect(
+                    self.screen,
+                    (0, 255, 0),  # green
+                    pygame.Rect(c * CELL_SIZE, r * CELL_SIZE, CELL_SIZE, CELL_SIZE)
+                )
+
+        # Draw food
+        if self.food:
+            pygame.draw.rect(
+                self.screen,
+                (255, 0, 0),  # red
+                pygame.Rect(self.food[1] * CELL_SIZE, self.food[0] * CELL_SIZE, CELL_SIZE, CELL_SIZE)
+            )
+
+class Player:
+    def __init__(self, conn):
+        self.conn = conn
+        self.input_ready = False
+
+    def get_direction(self):
+        # Read direction from the client connection
+        # ...
+        return direction
+
 
 # --------------------------------------------------------------------------- #
 # Entry point – run the game
